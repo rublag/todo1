@@ -10,13 +10,11 @@
    :headers {"Content-Type" "text/html"}
    :body "hello HTTP!"})
 
-(defn handler2 [req method
-                {:keys [who] :as params}]
+(defn handler2 [req]
   (println req)
-  (println params)
   {:status 200
    :headers {"Content-Type" "text/html"}
-   :body (str "Hello, " who "!")})
+   :body (str "Hello, " (get-in req [:uri-params :who]) "!")})
 
 (defn index [& _]
   {:status 200
@@ -25,10 +23,12 @@
 
 (def app
   (route handler
-         ["/" [:get] index]
+         ["/pub/*" [:get] (route-static "public" index)]
+         ["" [:get] index]
          ["/:who" [:get] handler2]))
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
+  (println "Clojure loaded.")
   (run-server app {:port 8080}))
