@@ -22,3 +22,9 @@
                           :from :tasks
                           :where [:= :id id])]
     (first (db/query pg (sql/format sqlmap)))))
+
+(defn create-task [db-spec task]
+  (let [{:keys [name finished description]} task]
+    (:id (first(db/insert! db-spec :tasks {:name name
+                                           :description description
+                                           :finished finished})))))

@@ -16,7 +16,8 @@
          ["" [:get] tasks/task-list]
          ["/tasks/:id" [:get] tasks/task-full]
          ["/tasks/:id/edit" [:get] tasks/task-edit]
-         ["/create" [:get] tasks/task-create]))
+         ["/create" [:get] tasks/task-create-get]
+         ["/create" [:post] tasks/task-create-post]))
 
 (defn -main
   "I don't do a whole lot ... yet."
