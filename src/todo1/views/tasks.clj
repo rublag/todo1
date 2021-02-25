@@ -9,8 +9,7 @@
       name)]])
 
 (defn tasks [task-list]
-  [:ul.list-group
-   (vec (map task task-list))])
+  (into [:ul.list-group] (map task task-list)))
 
 (defn task-full
   [{:keys [id name finished description]}]
