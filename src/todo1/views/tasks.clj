@@ -26,7 +26,7 @@
        [:input.btn.btn-primary {:type "submit"
                                 :value (if finished "Mark unfinished" "Mark finished")}]]]
      [:div.col
-      [:a.btn.btn-primary {:href (str "/tasks/" id "edit")} "Edit"]]
+      [:a.btn.btn-primary {:href (str "/tasks/" id "/edit")} "Edit"]]
      [:div.col
       [:form {:action (str "/tasks/" id "/delete")
               :method :delete}
