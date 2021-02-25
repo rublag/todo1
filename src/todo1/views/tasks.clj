@@ -2,9 +2,10 @@
   (:require [formative.core :as f]))
 
 (defn task
-  [{:keys [name finished]}]
+  [{:keys [id name finished]}]
   [:li.list-group-item
-   [:a (if finished
+   [:a {:href (str "/tasks/" id)}
+    (if finished
       [:s name]
       name)]])
 
