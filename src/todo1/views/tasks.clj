@@ -18,15 +18,19 @@
    [:div.card-header name]
    [:div.card-body
     description
-    [:form {:action (str "/tasks/" id "/"
-                         (if finished "unfinish" "finish"))
-            :method :post}
-     [:input.btn.btn-primary {:type "submit"
-               :value (if finished "Mark unfinished" "Mark finished")}]]
-    [:a.btn.btn-primary {:href (str "/tasks/" id "edit")} "Edit"]
-    [:form {:action (str "/tasks/" id "/delete")
-            :method :delete}
-     [:input.btn.btn-danger {:type "submit" :value "Remove"}]]]])
+    [:div.row
+     [:div.col
+      [:form {:action (str "/tasks/" id "/"
+                           (if finished "unfinish" "finish"))
+              :method :post}
+       [:input.btn.btn-primary {:type "submit"
+                                :value (if finished "Mark unfinished" "Mark finished")}]]]
+     [:div.col
+      [:a.btn.btn-primary {:href (str "/tasks/" id "edit")} "Edit"]]
+     [:div.col
+      [:form {:action (str "/tasks/" id "/delete")
+              :method :delete}
+       [:input.btn.btn-danger {:type "submit" :value "Remove"}]]]]]])
 
 (defn task-edit-form [{:keys [name finished description]}]
   {:fields [{:name :name}
