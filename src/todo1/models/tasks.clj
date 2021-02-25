@@ -16,3 +16,9 @@
   (let [sqlmap (sql/build :select :*
                           :from :tasks)]
     (db/query pg (sql/format sqlmap))))
+
+(defn get-task [db-spec id]
+  (let [sqlmap (sql/build :select :*
+                          :from :tasks
+                          :where [:= :id id])]
+    (first (db/query pg (sql/format sqlmap)))))

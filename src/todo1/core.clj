@@ -13,7 +13,8 @@
 (def app
   (route not-found
          ["/pub/*" [:get] (route-static "public" not-found)]
-         ["" [:get] tasks/task-list]))
+         ["" [:get] tasks/task-list]
+         ["/tasks/:id" [:get] tasks/task-full]))
 
 (defn -main
   "I don't do a whole lot ... yet."
