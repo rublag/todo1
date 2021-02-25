@@ -10,7 +10,9 @@
       name)]])
 
 (defn tasks [task-list]
-  (into [:ul.list-group] (map task task-list)))
+  [:div
+   [:a.btn.btn-primary {:href "/create"} "Create new task"]
+   (into [:ul.list-group] (map task task-list))])
 
 (defn task-full
   [{:keys [id name finished description]}]
@@ -32,13 +34,16 @@
               :method :delete}
        [:input.btn.btn-danger {:type "submit" :value "Remove"}]]]]]])
 
-(defn task-edit-form [{:keys [name finished description]}]
+(def task-empty-edit-form
   {:fields [{:name :name}
             {:name :description :type :textarea}
-            {:name :finished :type :checkbox}]
-   :values {:name name
-            :description description
-            :finished finished}})
+            {:name :finished :type :checkbox}]})
+
+(defn task-edit-form [{:keys [name finished description]}]
+  (merge task-empty-edit-form
+         {:values {:name name
+                   :description description
+                   :finished finished}}))
 
 (defn task-edit
   [{:keys [id name finished description] :as task}]
@@ -46,3 +51,9 @@
     [:div.card-header (str "Edit task: " name)]
     [:div.card-body
      (f/render-form (task-edit-form task))]])
+
+(defn task-create []
+   [:div.card
+    [:div.card-header (str "Create task")]
+    [:div.card-body
+     (f/render-form task-empty-edit-form)]])

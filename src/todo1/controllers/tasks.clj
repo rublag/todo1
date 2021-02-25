@@ -27,3 +27,8 @@
       {:status 200
        :headers {"Content-type" "text/html"}
        :body (layout/render (view/task-edit task))})))
+
+(defn task-create [req]
+  {:status 200
+   :headers {"Content-type" "text/html"}
+   :body (layout/render (view/task-create))})

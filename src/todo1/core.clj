@@ -15,7 +15,8 @@
          ["/pub/*" [:get] (route-static "public" not-found)]
          ["" [:get] tasks/task-list]
          ["/tasks/:id" [:get] tasks/task-full]
-         ["/tasks/:id/edit" [:get] tasks/task-edit]))
+         ["/tasks/:id/edit" [:get] tasks/task-edit]
+         ["/create" [:get] tasks/task-create]))
 
 (defn -main
   "I don't do a whole lot ... yet."
