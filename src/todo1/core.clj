@@ -15,7 +15,8 @@
          ["/pub/*" [:get] (route-static "public" not-found)]
          ["" [:get] tasks/task-list]
          ["/tasks/:id" [:get] tasks/task-full]
-         ["/tasks/:id/edit" [:get] tasks/task-edit]
+         ["/tasks/:id/edit" [:get] tasks/task-edit-get]
+         ["/tasks/:id/edit" [:post] tasks/task-edit-post]
          ["/create" [:get] tasks/task-create-get]
          ["/create" [:post] tasks/task-create-post]))
 

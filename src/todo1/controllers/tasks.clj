@@ -25,12 +25,26 @@
        :headers {"Content-type" "text/html"}
        :body (layout/render (view/task-full task))})))
 
-(defn task-edit [req]
+(defn task-edit-get [req]
   (if-let [id (str->int (:id (:uri-params req)))]
     (if-let [task (model/get-task model/pg id)]
       {:status 200
        :headers {"Content-type" "text/html"}
        :body (layout/render (view/task-edit task))})))
+
+(defn task-edit-post* [req]
+  (if-let [id (str->int (:id (:uri-params req)))]
+    (let [params (:params req)]
+      (if-let [task (fp/parse-params view/task-empty-edit-form params)]
+        (do (model/update-task model/pg task id)
+            (-> (str "/tasks/" id)
+                (response/redirect :see-other)
+                (response/content-type "text/html")))))))
+
+(def task-edit-post
+  (-> task-edit-post*
+      params/wrap-params
+      nested-params/wrap-nested-params))
 
 (defn task-create-get [req]
   {:status 200

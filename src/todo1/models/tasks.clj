@@ -28,3 +28,10 @@
     (:id (first(db/insert! db-spec :tasks {:name name
                                            :description description
                                            :finished finished})))))
+
+(defn update-task [db-spec task id]
+  (let [{:keys [name finished description]} task]
+    (db/update! db-spec :tasks {:name name
+                                :description description
+                                :finished finished}
+                ["id = ?" id])))
