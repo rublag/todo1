@@ -11,7 +11,6 @@
   {:status 200
    :headers {"Content-type" "text/html"}
    :body (let [tasks (model/get-tasks-short model/pg)]
-           (println (view/tasks tasks))
            (layout/render (view/tasks tasks)))})
 
 (defn str->int [s]
@@ -56,7 +55,6 @@
     (if-let [task (fp/parse-params view/task-empty-edit-form
                                                                 params)]
       (let [id (model/create-task model/pg task)]
-        (println id)
         (-> (str "/tasks/" id)
             (response/redirect :see-other)
             (response/content-type "text/html"))))))
@@ -67,7 +65,6 @@
       nested-params/wrap-nested-params))
 
 (defn task-remove [req]
-  (println "test!!!!!!!!!!!!!!!!!!!")
   (when-let [id (str->int (:id (:uri-params req)))]
     (model/delete-task model/pg id)
     (-> "/"
