@@ -65,3 +65,11 @@
   (-> task-create-post*
       params/wrap-params
       nested-params/wrap-nested-params))
+
+(defn task-remove [req]
+  (println "test!!!!!!!!!!!!!!!!!!!")
+  (when-let [id (str->int (:id (:uri-params req)))]
+    (model/delete-task model/pg id)
+    (-> "/"
+        (response/redirect :see-other)
+        (response/content-type "text/html"))))

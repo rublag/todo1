@@ -31,7 +31,7 @@
       [:a.btn.btn-primary {:href (str "/tasks/" id "/edit")} "Edit"]]
      [:div.col
       [:form {:action (str "/tasks/" id "/delete")
-              :method :delete}
+              :method :post}
        [:input.btn.btn-danger {:type "submit" :value "Remove"}]]]]]])
 
 (def task-empty-edit-form

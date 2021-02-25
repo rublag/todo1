@@ -35,3 +35,6 @@
                                 :description description
                                 :finished finished}
                 ["id = ?" id])))
+
+(defn delete-task [db-spec id]
+  (db/delete! db-spec :tasks ["id = ?" id]))
