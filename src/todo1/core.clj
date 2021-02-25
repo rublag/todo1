@@ -1,31 +1,19 @@
 (ns todo1.core
-  (:use org.httpkit.server)
-  (:use todo1.router)
-  (:use [todo1.views.index :only [index] :rename {index index-view}])
+  (:require [org.httpkit.server :refer :all]
+            [todo1.router :refer :all]
+            [todo1.controllers.tasks :as tasks])
   (:gen-class))
 
-(defn handler [req method route-params]
+(defn not-found [req]
   (println req)
-  {:status 200
+  {:status 404
    :headers {"Content-Type" "text/html"}
-   :body "hello HTTP!"})
-
-(defn handler2 [req]
-  (println req)
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body (str "Hello, " (get-in req [:uri-params :who]) "!")})
-
-(defn index [& _]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body (index-view)})
+   :body "Not found"})
 
 (def app
-  (route handler
-         ["/pub/*" [:get] (route-static "public" index)]
-         ["" [:get] index]
-         ["/:who" [:get] handler2]))
+  (route not-found
+         ["/pub/*" [:get] (route-static "public" not-found)]
+         ["" [:get] tasks/task-list]))
 
 (defn -main
   "I don't do a whole lot ... yet."
