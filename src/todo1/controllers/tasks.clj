@@ -20,3 +20,10 @@
       {:status 200
        :headers {"Content-type" "text/html"}
        :body (layout/render (view/task-full task))})))
+
+(defn task-edit [req]
+  (if-let [id (str->int (:id (:uri-params req)))]
+    (if-let [task (model/get-task model/pg id)]
+      {:status 200
+       :headers {"Content-type" "text/html"}
+       :body (layout/render (view/task-edit task))})))
