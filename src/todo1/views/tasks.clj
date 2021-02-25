@@ -21,12 +21,12 @@
     [:form {:action (str "/tasks/" id "/"
                          (if finished "unfinish" "finish"))
             :method :post}
-     [:button.btn {:type "submit"
+     [:input.btn.btn-primary {:type "submit"
                :value (if finished "Mark unfinished" "Mark finished")}]]
-    [:a.btn.btn-primary {:href (str "/tasks/" id "edit")}]
+    [:a.btn.btn-primary {:href (str "/tasks/" id "edit")} "Edit"]
     [:form {:action (str "/tasks/" id "/delete")
             :method :delete}
-     [:button.btn.btn-danger {:type "submit" :value "Remove"}]]]])
+     [:input.btn.btn-danger {:type "submit" :value "Remove"}]]]])
 
 (defn task-edit-form [{:keys [name finished description]}]
   {:fields [{:name :name}
